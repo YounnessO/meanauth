@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-// import { HttpClient,HttpHeaders} from '@angular/common/http';
+import { HttpClient,HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -25,22 +25,23 @@ export class AuthService {
   	.map(res => res.json());
   }
 
-  // getProfile(){
-  //   this.loadToken();
-  //   let headers = new  HttpHeaders({
-  //     'Authorization':this.authToken,
-  //     'Content-Type':'application/json'
-  //   });
-  //   return this.http.get('http://localhost:3000/users/profile',{headers:headers});
-  // }
   getProfile(){
-    let headers = new Headers();
     this.loadToken();
-    headers.append('Authorization', this.authToken);
-    headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/users/profile', {headers: headers})
-    .map(res => res.json());
+    let headers = new  HttpHeaders({
+      'Authorization':this.authToken,
+      'Content-Type':'application/json'
+    });
+    return this.http.get('http://localhost:3000/users/profile',{headers:headers});
   }
+
+  // getProfile(){
+  //   let headers = new Headers();
+  //   this.loadToken();
+  //   headers.append('Authorization', this.authToken);
+  //   headers.append('Content-Type', 'application/json');
+  //   return this.http.get('http://localhost:3000/users/profile', {headers: headers})
+  //   .map(res => res.json());
+  // }
 
 loadToken(){
   const token = localStorage.getItem('id_token');
